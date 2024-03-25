@@ -2,9 +2,9 @@ import React, { FC } from 'react';
 import './CardList.css';
 import Card from '../Card/Card';
 
-interface CardListProps {}
+interface Props {}
 
-const CardList: FC<CardListProps> = () => (
+const CardList: FC<Props> = () => (
   <div className="CardList">
     <Card companyName='Apple' ticker='AAPL' price={100} />
     <Card companyName='Microsoft' ticker='MSFT' price={200} />
