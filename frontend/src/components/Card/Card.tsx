@@ -7,15 +7,15 @@ interface Props {
   price: number;
 }
 
-const Card: FC<Props> = ({ companyName, ticker, price }) => (
+const Card: FC<Props> = (props: Props):JSX.Element => (
   <div className="Card">
     <img
       src="https://images.unsplash.com/photo-1612428978260-2b9c7df20150?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
       alt="Card"
       />
       <div className="details">
-        <h2>{companyName} ({ticker})</h2>
-        <p>${price}</p>
+        <h2>{props.companyName} ({props.ticker})</h2>
+        <p>${props.price}</p>
       </div>
       <p className="info">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor
