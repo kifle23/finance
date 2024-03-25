@@ -1,12 +1,12 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Card from './components/Card/Card';
+import CardList from './components/CardList/CardList';
+import Search from './components/Search/Search';
 
 function App() {
   return (
     <div className="App">
-      <Card />
+      <Search />
+      <CardList />
     </div>
   );
 }
