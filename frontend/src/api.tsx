@@ -13,9 +13,11 @@ export const searchCompanies = async (query: string) => {
     return data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      console.error(error.response?.data);
+      console.log("error message: ", error.message);
+      return error.message;
     } else {
-      console.error(error);
+      console.log("unexpected error: ", error);
+      return "An expected error has occured.";
     }
   }
 }; 
