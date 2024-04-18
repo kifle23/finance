@@ -1,4 +1,4 @@
-import React, { ChangeEvent, MouseEvent, useState, useEffect } from 'react';
+import React, { ChangeEvent, FormEvent, useState, useEffect, SyntheticEvent } from 'react';
 import './App.css';
 import CardList from './components/CardList/CardList';
 import Search from './components/Search/Search';
@@ -14,11 +14,12 @@ function App() {
     console.log('Updated searchResults:', searchResults);
   }, [searchResults]);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
 
-  const handleClick = async (e: MouseEvent<HTMLButtonElement>) => {
+  const onSearchSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     try {
       const result = await searchCompanies(search);
       if (typeof result === 'string') {
@@ -31,10 +32,15 @@ function App() {
     }
   };
 
+  const onPotfolioCreate=(e: SyntheticEvent) =>{
+    e.preventDefault();
+    console.log('Portfolio created');
+  }
+
   return (
     <div className="App">
-      <Search handleClick={handleClick} handleChange={handleChange} search={search} />
-      <CardList searchResults = {searchResults} />
+      <Search onSearchSubmit={onSearchSubmit} handleSearchChange={handleSearchChange} search={search} />
+      <CardList searchResults = {searchResults} onPotfolioCreate = {onPotfolioCreate} />
       {error && <div>{error}</div>}
     </div>
   );

@@ -1,22 +1,24 @@
-import React, { FC, ChangeEvent, MouseEvent } from 'react';
+import React, { FC, ChangeEvent, FormEvent } from 'react';
 import './Search.css';
 
 interface Props {
-  handleClick: (e: MouseEvent<HTMLButtonElement>) => void;
-  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onSearchSubmit: (e: FormEvent<HTMLFormElement>) => void;
+  handleSearchChange: (e: ChangeEvent<HTMLInputElement>) => void;
   search: string | undefined;
 }
 
-const Search: FC<Props> = ({handleClick,handleChange,search}:Props) => {
+const Search: FC<Props> = ({onSearchSubmit,handleSearchChange,search}:Props) => {
   return (
   <div className="Search">
+    <form onSubmit={onSearchSubmit} >
     <input
       type="text"
       placeholder="Search..."
       value={search}
-      onChange={(e)=> handleChange(e)}
+      onChange={(e)=> handleSearchChange(e)}
     />
-    <button onClick={(e) => handleClick(e)}>Search</button>
+    </form>
+    
   </div>
   );
 
