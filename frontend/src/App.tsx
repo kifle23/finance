@@ -34,6 +34,7 @@ function App() {
   return (
     <div className="App">
       <Search handleClick={handleClick} handleChange={handleChange} search={search} />
+      {error && <div>{error}</div>}
       <CardList />
     </div>
   );
