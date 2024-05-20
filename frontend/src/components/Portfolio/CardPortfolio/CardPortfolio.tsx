@@ -1,11 +1,14 @@
 import React, { FC } from 'react';
 import './CardPortfolio.css';
 
-interface CardPortfolioProps {}
+interface CardPortfolioProps {
+  portfolio: string[];
+}
 
-const CardPortfolio: FC<CardPortfolioProps> = () => (
+const CardPortfolio: FC<CardPortfolioProps> = ({portfolio}:CardPortfolioProps) => (
   <div className="CardPortfolio">
-    CardPortfolio Component
+    <h4>{portfolio}</h4>
+    <button>X</button>
   </div>
 );
 

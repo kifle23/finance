@@ -36,6 +36,8 @@ function App() {
 
   const onPotfolioCreate=(e: any) =>{
     e.preventDefault();
+    const exists = portfolio.find((value) => value === e.target[0].value);
+    if (exists) return;
     const updatedPortfolio = [...portfolio, e.target[0].value];
     setPortfolio(updatedPortfolio);
   }
@@ -43,7 +45,7 @@ function App() {
   return (
     <div className="App">
       <Search onSearchSubmit={onSearchSubmit} handleSearchChange={handleSearchChange} search={search} />
-      <ListPortfolio />
+      <ListPortfolio portfolio={portfolio} />
       <CardList searchResults = {searchResults} onPotfolioCreate = {onPotfolioCreate} />
       {error && <div>{error}</div>}
     </div>
