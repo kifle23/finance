@@ -7,6 +7,7 @@ import { searchCompanies } from './api';
 
 function App() {
   const [search, setSearch] = useState('');
+  const [portfolio, setPortfolio] = useState<string[]>([]);
   const [searchResults, setSearchResults] = useState<CompanySearch[]>([]);
   const [error, setError] = useState<string | null>(null);
 
@@ -32,9 +33,10 @@ function App() {
     }
   };
 
-  const onPotfolioCreate=(e: SyntheticEvent) =>{
+  const onPotfolioCreate=(e: any) =>{
     e.preventDefault();
-    console.log('Portfolio created');
+    const updatedPortfolio = [...portfolio, e.target[0].value];
+    setPortfolio(updatedPortfolio);
   }
 
   return (
