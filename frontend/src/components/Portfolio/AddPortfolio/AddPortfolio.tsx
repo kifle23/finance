@@ -7,12 +7,17 @@ interface AddPortfolioProps {
 }
 
 const AddPortfolio: FC<AddPortfolioProps> = ({onPotfolioCreate, symbol}:AddPortfolioProps) => (
-  <div className="AddPortfolio">
-    <form onSubmit={(e) => onPotfolioCreate(e)} >
-      <input type="text" value={symbol} readOnly />
-      <button type='submit'>Add</button>
-    </form>
-  </div>
+  <div className="flex flex-col items-center justify-end flex-1 space-x-4 space-y-2 md:flex-row md:space-y-0">
+      <form onSubmit={onPotfolioCreate}>
+        <input readOnly={true} hidden={true} value={symbol} />
+        <button
+          type="submit"
+          className="p-2 px-8 text-white bg-darkBlue rounded-lg hover:opacity-70 focus:outline-none"
+        >
+          Add
+        </button>
+      </form>
+    </div>
 );
 
 export default AddPortfolio;

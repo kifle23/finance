@@ -19,7 +19,12 @@ const CardList: FC<Props> = ({searchResults, onPotfolioCreate}:Props) => (
           searchResults={company}
           onPotfolioCreate={onPotfolioCreate}
         />
-      )) : <div>No results found</div>
+      )) : (
+        <p className="mb-3 mt-3 text-xl font-semibold text-center md:text-xl">
+          No results!
+        </p>
+      )
+      
     }
   </div>
 );
