@@ -3,13 +3,13 @@ import './CardPortfolio.css';
 import DeletePortfolio from '../DeletePortfolio/DeletePortfolio';
 
 interface CardPortfolioProps {
-  portfolio: string[];
+  portfolio: string;
   onPortfolioDelete: (e: SyntheticEvent) => void;
 }
 
 const CardPortfolio: FC<CardPortfolioProps> = ({portfolio, onPortfolioDelete}:CardPortfolioProps) => (
-  <div className="CardPortfolio">
-    <h4>{portfolio}</h4>
+  <div className="flex flex-col w-full p-8 space-y-4 text-center rounded-lg shadow-lg md:w-1/3">
+    <p className="pt-6 text-xl font-bold">{portfolio}</p>
     <DeletePortfolio portfolio={portfolio} onPortfolioDelete={onPortfolioDelete} />
   </div>
 );
