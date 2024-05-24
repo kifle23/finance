@@ -1,11 +1,12 @@
 import React, { FC } from 'react';
-import styles from './HomePage.module.css';
+import './HomePage.css';
+import Hero from '../../components/Hero/Hero';
 
 interface HomePageProps {}
 
 const HomePage: FC<HomePageProps> = () => (
-  <div className={styles.HomePage} data-testid="HomePage">
-    HomePage Component
+  <div data-testid="HomePage">
+    <Hero />
   </div>
 );
 
