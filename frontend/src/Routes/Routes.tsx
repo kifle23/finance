@@ -15,12 +15,12 @@ export const routes = createBrowserRouter( [
                 
             },
             {
-                path: "/SearchPage", 
+                path: "search", 
                 element: <SearchPage />
                 
             },
             {
-                path: "/CompanyPage:ticker", 
+                path: "company/:ticker", 
                 element: <CompanyPage />
                 
             },
