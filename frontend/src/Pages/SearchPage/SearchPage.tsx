@@ -52,7 +52,6 @@ const SearchPage: FC<SearchPageProps> = () => {
   }
   return (
   <div data-testid="SearchPage">
-      <Hero />
       <Search onSearchSubmit={onSearchSubmit} handleSearchChange={handleSearchChange} search={search} />
       <ListPortfolio portfolio={portfolio} onPortfolioDelete={onPortfolioDelete} />
       <CardList searchResults = {searchResults} onPotfolioCreate = {onPotfolioCreate} />
