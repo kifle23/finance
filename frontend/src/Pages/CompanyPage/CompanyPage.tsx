@@ -5,6 +5,7 @@ import { CompanyProfile } from "../../company";
 import { getCompanyProfile } from "../../api";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import CompanyDashboard from "../../components/CompanyDashboard/CompanyDashboard";
+import Tile from "../../components/Tile/Tile";
 
 interface CompanyPageProps {}
 
@@ -25,7 +26,9 @@ const CompanyPage: FC<CompanyPageProps> = () => {
       {company ? (
         <div className="w-full relative flex ct-docs-disable-sidebar-content overflow-x-hidden">
           <Sidebar />
-          <CompanyDashboard />
+          <CompanyDashboard>
+            <Tile title="Company Name" subtitle={company.companyName} />
+          </CompanyDashboard>
         </div>
       ) : (
         <p>Loading...</p>
