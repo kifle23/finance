@@ -1,27 +1,12 @@
 import React, { FC } from "react";
 import "./RatioList.css";
-import { TestDataCompany } from "../Table/testData";
 
-interface RatioListProps {}
+interface RatioListProps {
+  data: any;
+  config: any;  
+};
 
-const data = TestDataCompany[0];
-
-type Company = typeof data;
-
-const config = [
-  {
-    label: "Company Name",
-    render: (company: Company) => company.companyName,
-    subTitle: "This is a company name",
-  },
-  {
-    label: "Company Name",
-    render: (company: Company) => company.companyName,
-    subTitle: "This is a company name",
-  },
-];
-
-const RatioList: FC<RatioListProps> = () => {
+const RatioList: FC<RatioListProps> = (data, config) => {
   const renderedRows = config.map((row: any) => {
     return (
       <li className="py-6 sm:py-6">
