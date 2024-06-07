@@ -76,16 +76,13 @@ const IncomeStatement: FC<IncomeStatementProps> = () => {
   }, [ticker]);
 
   return (
-    <div className="IncomeStatement">
+    <>
       {incomeStatment ? (
-        <div className="IncomeStatementTable">
-          <h1>Income Statement</h1>
-          <Table data={incomeStatment} configs={configs} />
-        </div>
+        <Table data={incomeStatment} configs={configs} />
       ) : (
         <p>Loading...</p>
       )}
-    </div>
+    </>
   );
 };
 

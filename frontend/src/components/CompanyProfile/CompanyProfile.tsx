@@ -3,10 +3,11 @@ import "./CompanyProfile.css";
 import { CompanyKeyMetrics } from "../../company";
 import { useOutletContext } from "react-router-dom";
 import { getKeyMetrics } from "../../api";
+import RatioList from "../RatioList/RatioList";
 
 interface CompanyProfileProps {}
 
-const tableConfig = [
+const config = [
   {
     label: "Market Cap",
     render: (company: CompanyKeyMetrics) => company.marketCapTTM,
@@ -72,42 +73,20 @@ const CompanyProfile: FC<CompanyProfileProps> = () => {
   const [company, setCompany] = useState<CompanyKeyMetrics>();
   useEffect(() => {
     const fetchCompany = async () => {
-      const result = await getKeyMetrics(ticker!);
+      const result = await getKeyMetrics(ticker);
       setCompany(result?.data[0]);
     };
     fetchCompany();
   }, [ticker]);
 
   return (
-    <div className="CompanyProfile">
+    <>
       {company ? (
-        <div className="w-full relative flex ct-docs-disable-sidebar-content overflow-x-hidden">
-          <div className="bg-white shadow rounded-lg ml-4 mt-4 mb-4 p-4 sm:p-6 w-full">
-            <ul className="divide-y divide-gray-200">
-              {tableConfig.map((row, index) => (
-                <li key={index} className="py-6 sm:py-6">
-                  <div className="flex items-center space-x-4">
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-gray-900 truncate">
-                        {row.label}
-                      </p>
-                      <p className="text-sm text-gray-500 truncate">
-                        {row.subTitle && row.subTitle}
-                      </p>
-                    </div>
-                    <div className="inline-flex items-center text-base font-semibold text-gray-900">
-                      {row.render(company)}
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+        <RatioList data={company} config={config} />
       ) : (
         <p>Loading...</p>
       )}
-    </div>
+    </>
   );
 };
 

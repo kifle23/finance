@@ -3,10 +3,10 @@ import "./RatioList.css";
 
 interface RatioListProps {
   data: any;
-  config: any;  
-};
+  config: any;
+}
 
-const RatioList: FC<RatioListProps> = (data, config) => {
+const RatioList: FC<RatioListProps> = ({ data, config }: RatioListProps) => {
   const renderedRows = config.map((row: any) => {
     return (
       <li className="py-6 sm:py-6">
