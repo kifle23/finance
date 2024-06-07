@@ -1,28 +1,14 @@
 import React, { FC } from "react";
-import "./Table.css";
-import { testIncomeStatementData } from "./testData";
 
-const data = testIncomeStatementData;
+interface TableProps {
+  data: any;
+  configs: any;
+}
 
-type Company = (typeof data)[0];
-
-const configs = [
-  {
-    label: "Year",
-    render: (company: Company) => company.acceptedDate,
-  },
-  {
-    label: "Cost of Revenue",
-    render: (company: Company) => company.costOfRevenue,
-  },
-];
-
-interface TableProps {}
-
-const Table: FC<TableProps> = () => {
+const Table: FC<TableProps> = ({data, configs} : TableProps) => {
   const renderedRows = data.map((company: any) => (
     <tr key={company.cik}>
-      {configs.map((configItem) => (
+      {configs.map((configItem:any) => (
         <td
           key={configItem.label}
           className="p-4 whitespace-nowrap text-sm font-normal text-gray-900"
@@ -33,7 +19,7 @@ const Table: FC<TableProps> = () => {
     </tr>
   ));
 
-  const renderHeader = configs.map((configItem) => (
+  const renderHeader = configs.map((configItem:any) => (
     <th
       key={configItem.label}
       className="p-4 text-left text-sm font-medium text-gray-500 uppercase tracking-wider"
