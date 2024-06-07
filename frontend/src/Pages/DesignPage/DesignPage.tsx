@@ -22,7 +22,7 @@ const DesignPage: FC<DesignPageProps> = () => (
       aspects of the app.
     </h2>
     <RatioList data={testIncomeStatementData} config={tableConfig} />
-    <Table />
+    <Table configs={tableConfig} data={testIncomeStatementData} />
   </div>
 );
 
