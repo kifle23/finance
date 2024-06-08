@@ -1,6 +1,9 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import './CashflowStatment.css';
 import { CompanyCashFlow } from '../../company';
+import { useOutletContext } from 'react-router';
+import { getCashFlowStatement } from '../../api';
+import RatioList from '../RatioList/RatioList';
 
 interface CashflowStatmentProps {}
 
@@ -41,10 +44,26 @@ const config = [
   },
 ];
 
-const CashflowStatment: FC<CashflowStatmentProps> = () => (
+const CashflowStatment: FC<CashflowStatmentProps> = () => {
+  const ticker = useOutletContext<string>();
+  const [cashflow, setCashflow] = useState<CompanyCashFlow[]>();
+  useEffect(() => {
+    const fetchCashflow = async () => {
+      const result = await getCashFlowStatement(ticker);
+      setCashflow(result!.data);
+    };
+    fetchCashflow();
+  }
+  , [ticker]);
+  
+  return (
   <>
-    CashflowStatment Component
+    {cashflow ? (
+      <RatioList data={cashflow} config={config} />
+    ) : (
+      <p>Loading...</p>
+    )}
   </>
-);
+)};
 
 export default CashflowStatment;
