@@ -6,6 +6,7 @@ import { getCompanyProfile } from "../../api";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import CompanyDashboard from "../../components/CompanyDashboard/CompanyDashboard";
 import Tile from "../../components/Tile/Tile";
+import Spinner from "../../components/Spinner/Spinner";
 
 interface CompanyPageProps {}
 
@@ -31,13 +32,10 @@ const CompanyPage: FC<CompanyPageProps> = () => {
             <Tile title="Price" subtitle={company.price.toString()} />
             <Tile title="Sector" subtitle={company.sector} />
             <Tile title="DCF" subtitle={company.dcf.toString()} />
-            <p className="bg-white shadow rounded text-medium text-gray-900 p-3 mt-1 m-4">
-              {company.description}
-            </p>
           </CompanyDashboard>
         </div>
       ) : (
-        <p>Loading...</p>
+        <Spinner />
       )}
     </div>
   );

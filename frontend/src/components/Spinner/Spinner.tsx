@@ -3,7 +3,7 @@ import "./Spinner.css";
 import { ClipLoader } from "react-spinners";
 
 interface SpinnerProps {
-  isLoading: boolean;
+  isLoading?: boolean;
 }
 
 const Spinner: FC<SpinnerProps> = ({ isLoading = true }: SpinnerProps) => {

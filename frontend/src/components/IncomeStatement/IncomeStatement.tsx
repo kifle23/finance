@@ -4,6 +4,7 @@ import { CompanyIncomeStatement } from "../../company";
 import { useOutletContext } from "react-router-dom";
 import { getIncomeStatement } from "../../api";
 import Table from "../Table/Table";
+import Spinner from "../Spinner/Spinner";
 
 interface IncomeStatementProps {}
 
@@ -80,7 +81,7 @@ const IncomeStatement: FC<IncomeStatementProps> = () => {
       {incomeStatment ? (
         <Table data={incomeStatment} configs={configs} />
       ) : (
-        <p>Loading...</p>
+        <Spinner />
       )}
     </>
   );

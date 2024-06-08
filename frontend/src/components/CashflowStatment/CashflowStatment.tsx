@@ -4,6 +4,7 @@ import { CompanyCashFlow } from '../../company';
 import { useOutletContext } from 'react-router';
 import { getCashFlowStatement } from '../../api';
 import RatioList from '../RatioList/RatioList';
+import Spinner from '../Spinner/Spinner';
 
 interface CashflowStatmentProps {}
 
@@ -61,7 +62,7 @@ const CashflowStatment: FC<CashflowStatmentProps> = () => {
     {cashflow ? (
       <RatioList data={cashflow} config={config} />
     ) : (
-      <p>Loading...</p>
+      <Spinner />
     )}
   </>
 )};
