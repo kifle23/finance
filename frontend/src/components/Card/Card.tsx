@@ -20,7 +20,7 @@ const Card: FC<Props> = ({
       key={id}
       id={id}
     >
-      <Link to={`/company/${searchResults.symbol}`} className="font-bold text-center text-veryDarkViolet md:text-left">
+      <Link to={`/company/${searchResults.symbol}/company-profile`} className="font-bold text-center text-veryDarkViolet md:text-left">
         {searchResults.name} ({searchResults.symbol})
       </Link>
       <p className="text-veryDarkBlue">{searchResults.currency}</p>
