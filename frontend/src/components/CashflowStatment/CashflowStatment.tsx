@@ -1,10 +1,10 @@
-import React, { FC, useEffect, useState } from 'react';
-import './CashflowStatment.css';
-import { CompanyCashFlow } from '../../company';
-import { useOutletContext } from 'react-router';
-import { getCashFlowStatement } from '../../api';
-import RatioList from '../RatioList/RatioList';
-import Spinner from '../Spinner/Spinner';
+import React, { FC, useEffect, useState } from "react";
+import "./CashflowStatment.css";
+import { CompanyCashFlow } from "../../company";
+import { useOutletContext } from "react-router";
+import { getCashFlowStatement } from "../../api";
+import RatioList from "../RatioList/RatioList";
+import Spinner from "../Spinner/Spinner";
 
 interface CashflowStatmentProps {}
 
@@ -48,23 +48,27 @@ const config = [
 const CashflowStatment: FC<CashflowStatmentProps> = () => {
   const ticker = useOutletContext<string>();
   const [cashflow, setCashflow] = useState<CompanyCashFlow[]>();
+  const [error, setError] = useState<string>();
+
   useEffect(() => {
     const fetchCashflow = async () => {
       const result = await getCashFlowStatement(ticker);
-      setCashflow(result!.data);
+      if (typeof result === "string") {
+        setError(result);
+      } else if (result && Array.isArray(result.data)) {
+        setCashflow(result!.data);
+      }
     };
     fetchCashflow();
-  }
-  , [ticker]);
-  
+  }, [ticker, error]);
+
   return (
-  <>
-    {cashflow ? (
-      <RatioList data={cashflow} config={config} />
-    ) : (
-      <Spinner />
-    )}
-  </>
-)};
+    <>
+      {error && <div>{error}</div>}
+      {cashflow ? <RatioList data={cashflow} config={config} /> : <Spinner />}
+    </>
+  );
+};
 
 export default CashflowStatment;
+
