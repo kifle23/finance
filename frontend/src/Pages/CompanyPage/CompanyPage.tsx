@@ -13,17 +13,23 @@ interface CompanyPageProps {}
 const CompanyPage: FC<CompanyPageProps> = () => {
   let { ticker } = useParams();
   const [company, setCompany] = useState<CompanyProfile>();
+  const [error, setError] = useState<string>();
 
   useEffect(() => {
     const fetchCompany = async () => {
       const result = await getCompanyProfile(ticker!);
-      setCompany(result?.data[0]);
+      if (typeof result === "string") {
+        setError(result);
+      } else if (result && Array.isArray(result.data)) {
+        setCompany(result!.data[0]);
+      }
     };
     fetchCompany();
   }, [ticker]);
 
   return (
-    <div data-testid="CompanyPage">
+    <>
+      {error && <div>{error}</div>}
       {company ? (
         <div className="w-full relative flex ct-docs-disable-sidebar-content overflow-x-hidden">
           <Sidebar />
@@ -37,7 +43,7 @@ const CompanyPage: FC<CompanyPageProps> = () => {
       ) : (
         <Spinner />
       )}
-    </div>
+    </>
   );
 };
 
