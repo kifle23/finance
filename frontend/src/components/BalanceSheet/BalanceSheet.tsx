@@ -66,16 +66,23 @@ const config = [
 const BalanceSheet: FC<BalanceSheetProps> = () => {
   const ticker = useOutletContext<string>();
   const [balanceSheet, setBalanceSheet] = useState<CompanyBalanceSheet>();
+  const [error, setError] = useState<string>();
+
   useEffect(() => {
     const fetchBalanceSheet = async () => {
       const result = await getBalanceSheet(ticker!);
-      setBalanceSheet(result?.data[0]);
+      if (typeof result === "string") {
+        setError(result);
+      } else if (result && Array.isArray(result.data)) {
+        setBalanceSheet(result?.data[0]);
+      }
     };
     fetchBalanceSheet();
   }, [ticker]);
 
   return (
     <>
+      {error && <div>{error}</div>}
       {balanceSheet ? (
         <RatioList data={balanceSheet} config={config} />
       ) : (
