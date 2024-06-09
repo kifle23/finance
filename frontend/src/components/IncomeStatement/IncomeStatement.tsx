@@ -68,16 +68,23 @@ const IncomeStatement: FC<IncomeStatementProps> = () => {
   const ticker = useOutletContext<string>();
   const [incomeStatment, setIncomeSatatment] =
     useState<CompanyIncomeStatement[]>();
+  const [error, setError] = useState<string>();
+
   useEffect(() => {
     const fetchIncomeStatement = async () => {
       const result = await getIncomeStatement(ticker);
-      setIncomeSatatment(result?.data);
+      if (typeof result === "string") {
+        setError(result);
+      } else if (result && Array.isArray(result.data)) {
+        setIncomeSatatment(result?.data);
+      }
     };
     fetchIncomeStatement();
   }, [ticker]);
 
   return (
     <>
+      {error && <div>{error}</div>}
       {incomeStatment ? (
         <Table data={incomeStatment} configs={configs} />
       ) : (
