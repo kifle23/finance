@@ -17,10 +17,6 @@ const tableConfig = [
 const DesignPage: FC<DesignPageProps> = () => (
   <div className="DesignPage">
     <h1>Finshark Design Page</h1>
-    <h2>
-      This is Finshark's design page. This is where we will house various design
-      aspects of the app.
-    </h2>
     <RatioList data={testIncomeStatementData} config={tableConfig} />
     <Table configs={tableConfig} data={testIncomeStatementData} />
   </div>
