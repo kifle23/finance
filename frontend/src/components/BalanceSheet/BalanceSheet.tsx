@@ -80,11 +80,13 @@ const BalanceSheet: FC<BalanceSheetProps> = () => {
     fetchBalanceSheet();
   }, [ticker]);
 
+  const props = { data: balanceSheet, config };
+  
   return (
     <>
       {error && <div>{error}</div>}
       {balanceSheet ? (
-        <RatioList data={balanceSheet} config={config} />
+        <RatioList {...props} />
       ) : (
         <Spinner />
       )}
