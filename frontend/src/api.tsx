@@ -2,6 +2,7 @@ import axios from "axios";
 import {
   CompanyBalanceSheet,
   CompanyCashFlow,
+  CompanyCompData,
   CompanyIncomeStatement,
   CompanyKeyMetrics,
   CompanyProfile,
@@ -120,6 +121,18 @@ export const getCashFlowStatement = async (ticker: string) => {
           limit: 50,
         },
       }
+    );
+    return data;
+  } catch (error) {
+    return handleError(error);
+  }
+};
+
+//Paid feature
+export const getCompData = async (ticker: string) => {
+  try {
+    const data = await axios.get<ResponseData<CompanyCompData>>(
+      `https://financialmodelingprep.com/api/v4/stock_peers?symbol=${ticker}&apikey=${process.env.REACT_APP_API_KEY}`
     );
     return data;
   } catch (error) {
