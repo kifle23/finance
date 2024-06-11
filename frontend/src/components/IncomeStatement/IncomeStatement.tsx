@@ -82,11 +82,13 @@ const IncomeStatement: FC<IncomeStatementProps> = () => {
     fetchIncomeStatement();
   }, [ticker]);
 
+  const props = { data: incomeStatment, configs };
+
   return (
     <>
       {error && <div>{error}</div>}
       {incomeStatment ? (
-        <Table data={incomeStatment} configs={configs} />
+        <Table {...props} />
       ) : (
         <Spinner />
       )}

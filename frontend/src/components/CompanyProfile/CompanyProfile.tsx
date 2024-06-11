@@ -73,6 +73,7 @@ const CompanyProfile: FC<CompanyProfileProps> = () => {
   const ticker = useOutletContext<string>();
   const [company, setCompany] = useState<CompanyKeyMetrics>();
   const [error, setError] = useState<string>();
+  
   useEffect(() => {
     const fetchCompany = async () => {
       const result = await getKeyMetrics(ticker);
@@ -85,10 +86,12 @@ const CompanyProfile: FC<CompanyProfileProps> = () => {
     fetchCompany();
   }, [ticker]);
 
+  const props = { data: company, config };
+
   return (
     <>
       {error && <div>{error}</div>}
-      {company ? <RatioList data={company} config={config} /> : <Spinner />}
+      {company ? <RatioList {...props} /> : <Spinner />}
     </>
   );
 };

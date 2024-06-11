@@ -3,8 +3,8 @@ import "./CashflowStatment.css";
 import { CompanyCashFlow } from "../../company";
 import { useOutletContext } from "react-router";
 import { getCashFlowStatement } from "../../api";
-import RatioList from "../RatioList/RatioList";
 import Spinner from "../Spinner/Spinner";
+import Table from "../Table/Table";
 
 interface CashflowStatmentProps {}
 
@@ -62,10 +62,12 @@ const CashflowStatment: FC<CashflowStatmentProps> = () => {
     fetchCashflow();
   }, [ticker, error]);
 
+  const props = { data: cashflow, configs: config };
+
   return (
     <>
       {error && <div>{error}</div>}
-      {cashflow ? <RatioList data={cashflow} config={config} /> : <Spinner />}
+      {cashflow ? <Table {...props} /> : <Spinner />}
     </>
   );
 };

@@ -36,11 +36,11 @@ const handleError = (error: any) => {
 
 export const searchCompanies = async (query: string) => {
   try {
-    const { data } = await axiosInstance.get<ResponseData<CompanySearch>>(
+    const data = await axiosInstance.get<ResponseData<CompanySearch>>(
       `/search`,
       {
         params: {
-          query,
+          query: query,
           limit: 10,
           exchange: "NASDAQ",
         },
@@ -54,13 +54,8 @@ export const searchCompanies = async (query: string) => {
 
 export const getCompanyProfile = async (ticker: string) => {
   try {
-    const { data } = await axiosInstance.get<ResponseData<CompanyProfile>>(
-      `/profile`,
-      {
-        params: {
-          ticker,
-        },
-      }
+    const data = await axiosInstance.get<ResponseData<CompanyProfile>>(
+      `/profile/${ticker}`
     );
     return data;
   } catch (error) {
@@ -70,11 +65,10 @@ export const getCompanyProfile = async (ticker: string) => {
 
 export const getKeyMetrics = async (ticker: string) => {
   try {
-    const { data } = await axiosInstance.get<ResponseData<CompanyKeyMetrics>>(
-      `/key-metrics-ttm`,
+    const data = await axiosInstance.get<ResponseData<CompanyKeyMetrics>>(
+      `/key-metrics-ttm/${ticker}`,
       {
         params: {
-          ticker,
           limit: 40,
         },
       }
@@ -87,14 +81,14 @@ export const getKeyMetrics = async (ticker: string) => {
 
 export const getIncomeStatement = async (ticker: string) => {
   try {
-    const { data } = await axiosInstance.get<
-      ResponseData<CompanyIncomeStatement>
-    >(`/income-statement`, {
-      params: {
-        ticker,
-        limit: 50,
-      },
-    });
+    const data = await axiosInstance.get<ResponseData<CompanyIncomeStatement>>(
+      `/income-statement/${ticker}`,
+      {
+        params: {
+          limit: 50,
+        },
+      }
+    );
     return data;
   } catch (error) {
     return handleError(error);
@@ -103,11 +97,10 @@ export const getIncomeStatement = async (ticker: string) => {
 
 export const getBalanceSheet = async (ticker: string) => {
   try {
-    const { data } = await axiosInstance.get<ResponseData<CompanyBalanceSheet>>(
-      `/balance-sheet-statement`,
+    const data = await axiosInstance.get<ResponseData<CompanyBalanceSheet>>(
+      `/balance-sheet-statement/${ticker}`,
       {
         params: {
-          ticker,
           limit: 50,
         },
       }
@@ -120,11 +113,10 @@ export const getBalanceSheet = async (ticker: string) => {
 
 export const getCashFlowStatement = async (ticker: string) => {
   try {
-    const { data } = await axiosInstance.get<ResponseData<CompanyCashFlow>>(
-      `/cash-flow-statement`,
+    const data = await axiosInstance.get<ResponseData<CompanyCashFlow>>(
+      `/cash-flow-statement/${ticker}`,
       {
         params: {
-          ticker,
           limit: 50,
         },
       }
