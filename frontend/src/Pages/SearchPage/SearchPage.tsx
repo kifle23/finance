@@ -14,10 +14,6 @@ const SearchPage: FC<SearchPageProps> = () => {
   const [searchResults, setSearchResults] = useState<CompanySearch[]>([]);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    console.log("Updated searchResults:", searchResults);
-  }, [searchResults]);
-
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
