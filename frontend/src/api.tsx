@@ -7,6 +7,7 @@ import {
   CompanyKeyMetrics,
   CompanyProfile,
   CompanySearch,
+  CompanyTenK,
 } from "./company";
 
 const baseURL = "https://financialmodelingprep.com/api/v3";
@@ -137,5 +138,23 @@ export const getCompData = async (ticker: string) => {
     return data;
   } catch (error) {
     return handleError(error, " -> Company Stock Comparer");
+  }
+};
+
+//Paid feature
+export const getTenK = async (ticker: string) => {
+  try {
+    const data = await axiosInstance.get<ResponseData<CompanyTenK>>(
+      `/sec_filings/${ticker}`,
+      {
+        params: {
+          type: "10-K",
+          page: 0,
+        },
+      }
+    );
+    return data;
+  } catch (error) {
+    return handleError(error, " -> Company 10-K Finder");
   }
 };
