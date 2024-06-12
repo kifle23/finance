@@ -6,6 +6,7 @@ import { getKeyMetrics } from "../../api";
 import RatioList from "../RatioList/RatioList";
 import Spinner from "../Spinner/Spinner";
 import CompFinder from "../CompFinder/CompFinder";
+import TenKFinder from "../TenKFinder/TenKFinder";
 
 interface CompanyProfileProps {}
 
@@ -95,6 +96,7 @@ const CompanyProfile: FC<CompanyProfileProps> = () => {
       {company ? (
         <>
           <CompFinder ticker={ticker} />
+          <TenKFinder ticker={ticker} />
           <RatioList {...props} />
         </>
       ) : (
