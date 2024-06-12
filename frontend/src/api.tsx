@@ -2,6 +2,7 @@ import axios from "axios";
 import {
   CompanyBalanceSheet,
   CompanyCashFlow,
+  CompanyCompData,
   CompanyIncomeStatement,
   CompanyKeyMetrics,
   CompanyProfile,
@@ -22,10 +23,10 @@ interface ResponseData<T> {
   data: T[];
 }
 
-const handleError = (error: any) => {
+const handleError = (error: any, component: string = "") => {
   if (axios.isAxiosError(error)) {
-    if (error.response?.status === 429) {
-      return "API responded: PRO FEATURE ONLY.";
+    if (error.response?.status === 403) {
+      return "API responded: PRO FEATURE ONLY" + component;
     } else {
       return error.message;
     }
@@ -124,5 +125,17 @@ export const getCashFlowStatement = async (ticker: string) => {
     return data;
   } catch (error) {
     return handleError(error);
+  }
+};
+
+//Paid feature
+export const getCompData = async (ticker: string) => {
+  try {
+    const data = await axios.get<ResponseData<CompanyCompData>>(
+      `https://financialmodelingprep.com/api/v4/stock_peers?symbol=${ticker}&apikey=${process.env.REACT_APP_API_KEY}`
+    );
+    return data;
+  } catch (error) {
+    return handleError(error, " -> Company Stock Comparer");
   }
 };

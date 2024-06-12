@@ -5,6 +5,7 @@ import { useOutletContext } from "react-router-dom";
 import { getKeyMetrics } from "../../api";
 import RatioList from "../RatioList/RatioList";
 import Spinner from "../Spinner/Spinner";
+import CompFinder from "../CompFinder/CompFinder";
 
 interface CompanyProfileProps {}
 
@@ -73,7 +74,7 @@ const CompanyProfile: FC<CompanyProfileProps> = () => {
   const ticker = useOutletContext<string>();
   const [company, setCompany] = useState<CompanyKeyMetrics>();
   const [error, setError] = useState<string>();
-  
+
   useEffect(() => {
     const fetchCompany = async () => {
       const result = await getKeyMetrics(ticker);
@@ -91,7 +92,14 @@ const CompanyProfile: FC<CompanyProfileProps> = () => {
   return (
     <>
       {error && <div>{error}</div>}
-      {company ? <RatioList {...props} /> : <Spinner />}
+      {company ? (
+        <>
+          <CompFinder ticker={ticker} />
+          <RatioList {...props} />
+        </>
+      ) : (
+        <Spinner />
+      )}
     </>
   );
 };

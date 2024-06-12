@@ -21,7 +21,7 @@ const CompanyPage: FC<CompanyPageProps> = () => {
       if (typeof result === "string") {
         setError(result);
       } else if (result && Array.isArray(result.data)) {
-        setCompany(result!.data[0]);
+        setCompany(result?.data[0]);
       }
     };
     fetchCompany();
