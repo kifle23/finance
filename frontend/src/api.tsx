@@ -141,7 +141,6 @@ export const getCompData = async (ticker: string) => {
   }
 };
 
-//Paid feature
 export const getTenK = async (ticker: string) => {
   try {
     const data = await axiosInstance.get<ResponseData<CompanyTenK>>(
