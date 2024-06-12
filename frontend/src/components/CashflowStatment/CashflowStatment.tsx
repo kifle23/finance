@@ -5,8 +5,14 @@ import { useOutletContext } from "react-router";
 import { getCashFlowStatement } from "../../api";
 import Spinner from "../Spinner/Spinner";
 import Table from "../Table/Table";
+import { formatLargeMonetaryNumber } from "../../Helpers/NumberFormatting";
 
 interface CashflowStatmentProps {}
+
+interface OutletContext {
+  ticker: string;
+  description: string;
+}
 
 const config = [
   {
@@ -15,38 +21,45 @@ const config = [
   },
   {
     label: "Operating Cashflow",
-    render: (company: CompanyCashFlow) => company.operatingCashFlow,
+    render: (company: CompanyCashFlow) =>
+      formatLargeMonetaryNumber(company.operatingCashFlow),
   },
   {
     label: "Investing Cashflow",
     render: (company: CompanyCashFlow) =>
-      company.netCashUsedForInvestingActivites,
+      formatLargeMonetaryNumber(company.netCashUsedForInvestingActivites),
   },
   {
     label: "Financing Cashflow",
     render: (company: CompanyCashFlow) =>
-      company.netCashUsedProvidedByFinancingActivities,
+      formatLargeMonetaryNumber(
+        company.netCashUsedProvidedByFinancingActivities
+      ),
   },
   {
     label: "Cash At End of Period",
-    render: (company: CompanyCashFlow) => company.cashAtEndOfPeriod,
+    render: (company: CompanyCashFlow) =>
+      formatLargeMonetaryNumber(company.cashAtEndOfPeriod),
   },
   {
     label: "CapEX",
-    render: (company: CompanyCashFlow) => company.capitalExpenditure,
+    render: (company: CompanyCashFlow) =>
+      formatLargeMonetaryNumber(company.capitalExpenditure),
   },
   {
     label: "Issuance Of Stock",
-    render: (company: CompanyCashFlow) => company.commonStockIssued,
+    render: (company: CompanyCashFlow) =>
+      formatLargeMonetaryNumber(company.commonStockIssued),
   },
   {
     label: "Free Cash Flow",
-    render: (company: CompanyCashFlow) => company.freeCashFlow,
+    render: (company: CompanyCashFlow) =>
+      formatLargeMonetaryNumber(company.freeCashFlow),
   },
 ];
 
 const CashflowStatment: FC<CashflowStatmentProps> = () => {
-  const ticker = useOutletContext<string>();
+  const { ticker } = useOutletContext<OutletContext>();
   const [cashflow, setCashflow] = useState<CompanyCashFlow[]>();
   const [error, setError] = useState<string>();
 

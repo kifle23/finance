@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
 import "./CompanyPage.css";
 import { useParams } from "react-router-dom";
-import { CompanyProfile } from "../../company";
+import { CompanyProfile as CompanyProfileType } from "../../company";
 import { getCompanyProfile } from "../../api";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import CompanyDashboard from "../../components/CompanyDashboard/CompanyDashboard";
@@ -11,9 +11,10 @@ import Spinner from "../../components/Spinner/Spinner";
 interface CompanyPageProps {}
 
 const CompanyPage: FC<CompanyPageProps> = () => {
-  let { ticker } = useParams();
-  const [company, setCompany] = useState<CompanyProfile>();
+  let { ticker } = useParams<{ ticker: string }>();
+  const [company, setCompany] = useState<CompanyProfileType>();
   const [error, setError] = useState<string>();
+  const [description, setDescription] = useState<string>("");
 
   useEffect(() => {
     const fetchCompany = async () => {
@@ -22,6 +23,7 @@ const CompanyPage: FC<CompanyPageProps> = () => {
         setError(result);
       } else if (result && Array.isArray(result.data)) {
         setCompany(result?.data[0]);
+        setDescription(result?.data[0].description);
       }
     };
     fetchCompany();
@@ -33,11 +35,11 @@ const CompanyPage: FC<CompanyPageProps> = () => {
       {company ? (
         <div className="w-full relative flex ct-docs-disable-sidebar-content overflow-x-hidden">
           <Sidebar />
-          <CompanyDashboard ticker={ticker!}>
+          <CompanyDashboard ticker={ticker!} description={description}>
             <Tile title="Company Name" subtitle={company.companyName} />
-            <Tile title="Price" subtitle={company.price.toString()} />
+            <Tile title="Price" subtitle={"$" + company.price.toString()} />
+            <Tile title="DCF" subtitle={"$" + company.dcf.toString()} />
             <Tile title="Sector" subtitle={company.sector} />
-            <Tile title="DCF" subtitle={company.dcf.toString()} />
           </CompanyDashboard>
         </div>
       ) : (

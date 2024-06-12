@@ -28,13 +28,11 @@ const CompFinder: FC<CompFinderProps> = ({ ticker }: CompFinderProps) => {
   return (
     <div className="inline-flex rounded-md shadow-sm m-4" role="group">
       {error && <div>{error}</div>}
-      {company ? (
-        company?.peersList.map((ticker) => {
-          return <CompFinderItem ticker={ticker} />;
-        })
-      ) : (
-        <Spinner />
-      )}
+      {company
+        ? company?.peersList.map((ticker) => {
+            return <CompFinderItem ticker={ticker} />;
+          })
+        : !error?.includes("API responded: PRO FEATURE ONLY") && <Spinner />}
     </div>
   );
 };

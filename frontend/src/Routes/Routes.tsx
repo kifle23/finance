@@ -33,7 +33,7 @@ export const routes = createBrowserRouter([
           { path: "company-profile", element: <CompanyProfile /> },
           { path: "income-statement", element: <IncomeStatement /> },
           { path: "balance-sheet", element: <BalanceSheet /> },
-          { path: "cashflow-statment", element: <CashflowStatment /> },
+          { path: "cashflow-statement", element: <CashflowStatment /> },
         ],
       },
     ],
