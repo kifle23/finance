@@ -23,10 +23,10 @@ interface ResponseData<T> {
   data: T[];
 }
 
-const handleError = (error: any) => {
+const handleError = (error: any, component: string = "") => {
   if (axios.isAxiosError(error)) {
-    if (error.response?.status === 429) {
-      return "API responded: PRO FEATURE ONLY.";
+    if (error.response?.status === 403) {
+      return "API responded: PRO FEATURE ONLY" + component;
     } else {
       return error.message;
     }
@@ -136,6 +136,6 @@ export const getCompData = async (ticker: string) => {
     );
     return data;
   } catch (error) {
-    return handleError(error);
+    return handleError(error, " -> Company Stock Comparer");
   }
 };
