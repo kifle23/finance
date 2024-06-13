@@ -5,17 +5,30 @@ namespace api.Mappers
 {
     public static class StockMappers
     {
-        public static StockDto ToDto(this Stock stock)
+        public static StockResponseDTO ToDto(this Stock stockResponseDTO)
         {
-            return new StockDto
+            return new StockResponseDTO
             {
-                Id = stock.Id,
-                Symbol = stock.Symbol,
-                Name = stock.Name,
-                Purchase = stock.Purchase,
-                LastDiv = stock.LastDiv,
-                Industry = stock.Industry,
-                MarketCap = stock.MarketCap
+                Id = stockResponseDTO.Id,
+                Symbol = stockResponseDTO.Symbol,
+                Name = stockResponseDTO.Name,
+                Purchase = stockResponseDTO.Purchase,
+                LastDiv = stockResponseDTO.LastDiv,
+                Industry = stockResponseDTO.Industry,
+                MarketCap = stockResponseDTO.MarketCap
+            };
+        }
+
+        public static Stock ToModel(this StockRequestDto stockRequestDto)
+        {
+            return new Stock
+            {
+                Symbol = stockRequestDto.Symbol,
+                Name = stockRequestDto.Name,
+                Purchase = stockRequestDto.Purchase,
+                LastDiv = stockRequestDto.LastDiv,
+                Industry = stockRequestDto.Industry,
+                MarketCap = stockRequestDto.MarketCap
             };
         }
     }
