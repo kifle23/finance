@@ -5,30 +5,43 @@ namespace api.Mappers
 {
     public static class StockMappers
     {
-        public static StockResponseDTO ToDto(this Stock stockResponseDTO)
+        public static StockGetDto ToGetDto(this Stock stockGetDto)
         {
-            return new StockResponseDTO
+            return new StockGetDto
             {
-                Id = stockResponseDTO.Id,
-                Symbol = stockResponseDTO.Symbol,
-                Name = stockResponseDTO.Name,
-                Purchase = stockResponseDTO.Purchase,
-                LastDiv = stockResponseDTO.LastDiv,
-                Industry = stockResponseDTO.Industry,
-                MarketCap = stockResponseDTO.MarketCap
+                Id = stockGetDto.Id,
+                Symbol = stockGetDto.Symbol,
+                Name = stockGetDto.Name,
+                Purchase = stockGetDto.Purchase,
+                LastDiv = stockGetDto.LastDiv,
+                Industry = stockGetDto.Industry,
+                MarketCap = stockGetDto.MarketCap
             };
         }
 
-        public static Stock ToModel(this StockRequestDto stockRequestDto)
+        public static Stock ToModelCreate(this StockCreateDto stockCreateDto)
         {
             return new Stock
             {
-                Symbol = stockRequestDto.Symbol,
-                Name = stockRequestDto.Name,
-                Purchase = stockRequestDto.Purchase,
-                LastDiv = stockRequestDto.LastDiv,
-                Industry = stockRequestDto.Industry,
-                MarketCap = stockRequestDto.MarketCap
+                Symbol = stockCreateDto.Symbol,
+                Name = stockCreateDto.Name,
+                Purchase = stockCreateDto.Purchase,
+                LastDiv = stockCreateDto.LastDiv,
+                Industry = stockCreateDto.Industry,
+                MarketCap = stockCreateDto.MarketCap
+            };
+        }
+
+        public static Stock ToModelPut(this StockPutDto stockPutDto)
+        {
+            return new Stock
+            {
+                Symbol = stockPutDto.Symbol,
+                Name = stockPutDto.Name,
+                Purchase = stockPutDto.Purchase,
+                LastDiv = stockPutDto.LastDiv,
+                Industry = stockPutDto.Industry,
+                MarketCap = stockPutDto.MarketCap
             };
         }
     }
