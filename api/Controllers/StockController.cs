@@ -1,4 +1,5 @@
 using api.Data;
+using api.Mappers;
 using api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +15,7 @@ namespace api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Stock>>> GetStocks()
         {
-            var stocks = await _context.Stocks.ToListAsync();
+            var stocks = await _context.Stocks.Select(stock => stock.ToDto()).ToListAsync();
             if (stocks == null)
             {
                 return NotFound();
@@ -32,7 +33,7 @@ namespace api.Controllers
                 return NotFound();
             }
 
-            return Ok(stock);
+            return Ok(stock.ToDto());
         }
     }
 }
