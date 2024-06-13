@@ -64,8 +64,23 @@ namespace api.Controllers
             stock.MarketCap = stockPutDto.MarketCap;
 
             await _context.SaveChangesAsync();
-            
+
             return Ok(stock.ToGetDto());
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteStock([FromRoute] int id)
+        {
+            var stock = await _context.Stocks.FindAsync(id);
+            if (stock == null)
+            {
+                return NotFound();
+            }
+
+            _context.Stocks.Remove(stock);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
         }
     }
 }
