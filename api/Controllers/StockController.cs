@@ -1,4 +1,5 @@
 using api.Data;
+using api.Dtos.Stock;
 using api.Mappers;
 using api.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -34,6 +35,16 @@ namespace api.Controllers
             }
 
             return Ok(stock.ToDto());
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Stock>> PostStock([FromBody] StockRequestDto stockRequestDto)
+        {
+            var stock = stockRequestDto.ToModel();
+            _context.Stocks.Add(stock);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetStock), new { id = stock.Id }, stock.ToDto());
         }
     }
 }
