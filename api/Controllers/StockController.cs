@@ -16,7 +16,7 @@ namespace api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Stock>>> GetStocks()
         {
-            var stocks = await _context.Stocks.Select(stock => stock.ToDto()).ToListAsync();
+            var stocks = await _context.Stocks.Select(stock => stock.ToGetDto()).ToListAsync();
             if (stocks == null)
             {
                 return NotFound();
@@ -34,17 +34,38 @@ namespace api.Controllers
                 return NotFound();
             }
 
-            return Ok(stock.ToDto());
+            return Ok(stock.ToGetDto());
         }
 
         [HttpPost]
-        public async Task<ActionResult<Stock>> PostStock([FromBody] StockRequestDto stockRequestDto)
+        public async Task<ActionResult<Stock>> PostStock([FromBody] StockCreateDto stockRequestDto)
         {
-            var stock = stockRequestDto.ToModel();
+            var stock = stockRequestDto.ToModelCreate();
             _context.Stocks.Add(stock);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetStock), new { id = stock.Id }, stock.ToDto());
+            return CreatedAtAction(nameof(GetStock), new { id = stock.Id }, stock.ToGetDto());
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutStock([FromRoute] int id, [FromBody] StockPutDto stockPutDto)
+        {
+            var stock = await _context.Stocks.FindAsync(id);
+            if (stock == null)
+            {
+                return NotFound();
+            }
+
+            stock.Symbol = stockPutDto.Symbol;
+            stock.Name = stockPutDto.Name;
+            stock.Purchase = stockPutDto.Purchase;
+            stock.LastDiv = stockPutDto.LastDiv;
+            stock.Industry = stockPutDto.Industry;
+            stock.MarketCap = stockPutDto.MarketCap;
+
+            await _context.SaveChangesAsync();
+            
+            return Ok(stock.ToGetDto());
         }
     }
 }
