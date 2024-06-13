@@ -1,7 +1,8 @@
 namespace api.Dtos.Stock
 {
-    public class StockRequestDto
+    public class StockGetDto
     {
+        public int Id { get; set; }
         public string Symbol { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
 
@@ -10,5 +11,6 @@ namespace api.Dtos.Stock
         public decimal LastDiv { get; set; }
         public string Industry { get; set; } = string.Empty;
         public long MarketCap { get; set; }
+
     }
 }
